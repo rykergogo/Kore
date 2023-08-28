@@ -1,3 +1,3 @@
 #pragma once
 
-//std::string getCurrentWorkingDirectory();
+std::string managedStrToNative(System::String^ sysstr);

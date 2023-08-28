@@ -5,7 +5,6 @@
 #include <WinUser.h>
 #include <filesystem>
 #include <fstream>
-#include <vcclr.h>
 
 
 
@@ -207,11 +206,25 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 	if (fileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		if ((stream = fileDialog->OpenFile()) != nullptr) {
-			interior_ptr<const Char> ppchar = PtrToStringChars(fileDialog->FileName);
 
-
-			std::uintmax_t fileSize = std::filesystem::file_size("");
+			std::string fileName = managedStrToNative(fileDialog->FileName);
 			
+			std::uintmax_t fileSize = std::filesystem::file_size(fileName);
+			
+			char* buf = new char[fileSize];
+
+			std::ifstream fin(fileName, std::ios::binary);
+
+			fin.read(buf, fileSize);
+
+			if (!fin) { std::cout << "Error reading file"; }
+
+			fin.close();
+
+			peOutputTxtBox->Text += "File Name: ";
+			
+			
+
 			stream->Close();
 		}
 	}
