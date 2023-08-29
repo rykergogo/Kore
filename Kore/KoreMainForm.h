@@ -55,8 +55,16 @@ namespace Kore {
 	private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 	private: System::Windows::Forms::TabControl^ tabControl1;
 	private: System::Windows::Forms::TabPage^ peOutputPg;
-	private: System::Windows::Forms::TabPage^ tabPage2;
+	private: System::Windows::Forms::TabPage^ headerInfo;
+
 	private: System::Windows::Forms::TextBox^ peOutputTxtBox;
+	private: System::Windows::Forms::DataGridView^ View;
+
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ functionName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ address;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ relAddress;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
+
 
 
 	private:
@@ -79,11 +87,18 @@ namespace Kore {
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->peOutputPg = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->peOutputTxtBox = (gcnew System::Windows::Forms::TextBox());
+			this->headerInfo = (gcnew System::Windows::Forms::TabPage());
+			this->View = (gcnew System::Windows::Forms::DataGridView());
+			this->functionName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->address = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->relAddress = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->mainMenuStrip->SuspendLayout();
 			this->tabControl1->SuspendLayout();
 			this->peOutputPg->SuspendLayout();
+			this->headerInfo->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->View))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// mainMenuStrip
@@ -94,7 +109,7 @@ namespace Kore {
 			});
 			this->mainMenuStrip->Location = System::Drawing::Point(0, 0);
 			this->mainMenuStrip->Name = L"mainMenuStrip";
-			this->mainMenuStrip->Size = System::Drawing::Size(572, 24);
+			this->mainMenuStrip->Size = System::Drawing::Size(569, 24);
 			this->mainMenuStrip->TabIndex = 0;
 			this->mainMenuStrip->Text = L"menuStrip1";
 			// 
@@ -131,7 +146,7 @@ namespace Kore {
 			// tabControl1
 			// 
 			this->tabControl1->Controls->Add(this->peOutputPg);
-			this->tabControl1->Controls->Add(this->tabPage2);
+			this->tabControl1->Controls->Add(this->headerInfo);
 			this->tabControl1->Location = System::Drawing::Point(12, 27);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
@@ -146,18 +161,8 @@ namespace Kore {
 			this->peOutputPg->Padding = System::Windows::Forms::Padding(3);
 			this->peOutputPg->Size = System::Drawing::Size(540, 409);
 			this->peOutputPg->TabIndex = 0;
-			this->peOutputPg->Text = L"PE Output";
+			this->peOutputPg->Text = L"General Info";
 			this->peOutputPg->UseVisualStyleBackColor = true;
-			// 
-			// tabPage2
-			// 
-			this->tabPage2->Location = System::Drawing::Point(4, 22);
-			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(192, 74);
-			this->tabPage2->TabIndex = 1;
-			this->tabPage2->Text = L"tabPage2";
-			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
 			// peOutputTxtBox
 			// 
@@ -168,21 +173,72 @@ namespace Kore {
 			this->peOutputTxtBox->Size = System::Drawing::Size(528, 397);
 			this->peOutputTxtBox->TabIndex = 0;
 			// 
+			// headerInfo
+			// 
+			this->headerInfo->Controls->Add(this->View);
+			this->headerInfo->Location = System::Drawing::Point(4, 22);
+			this->headerInfo->Name = L"headerInfo";
+			this->headerInfo->Padding = System::Windows::Forms::Padding(3);
+			this->headerInfo->Size = System::Drawing::Size(540, 409);
+			this->headerInfo->TabIndex = 1;
+			this->headerInfo->Text = L"Header Info";
+			this->headerInfo->UseVisualStyleBackColor = true;
+			// 
+			// View
+			// 
+			this->View->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->View->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->functionName, this->address,
+					this->relAddress, this->type
+			});
+			this->View->Location = System::Drawing::Point(6, 6);
+			this->View->Name = L"View";
+			this->View->Size = System::Drawing::Size(538, 397);
+			this->View->TabIndex = 0;
+			// 
+			// functionName
+			// 
+			this->functionName->HeaderText = L"Function Name";
+			this->functionName->Name = L"functionName";
+			this->functionName->ReadOnly = true;
+			// 
+			// address
+			// 
+			this->address->HeaderText = L"Address";
+			this->address->Name = L"address";
+			this->address->ReadOnly = true;
+			// 
+			// relAddress
+			// 
+			this->relAddress->HeaderText = L"Relative Address";
+			this->relAddress->Name = L"relAddress";
+			this->relAddress->ReadOnly = true;
+			// 
+			// type
+			// 
+			this->type->HeaderText = L"Type";
+			this->type->Name = L"type";
+			this->type->ReadOnly = true;
+			// 
 			// KoreMainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(572, 474);
+			this->AutoScroll = true;
+			this->AutoSize = true;
+			this->ClientSize = System::Drawing::Size(569, 474);
 			this->Controls->Add(this->tabControl1);
 			this->Controls->Add(this->mainMenuStrip);
 			this->MainMenuStrip = this->mainMenuStrip;
 			this->Name = L"KoreMainForm";
-			this->Text = L"KoreMainForm";
+			this->Text = L"Kore";
 			this->mainMenuStrip->ResumeLayout(false);
 			this->mainMenuStrip->PerformLayout();
 			this->tabControl1->ResumeLayout(false);
 			this->peOutputPg->ResumeLayout(false);
 			this->peOutputPg->PerformLayout();
+			this->headerInfo->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->View))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -217,11 +273,12 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 			fin.read(buf, fileSize);
 
-			if (!fin) { std::cout << "Error reading file"; }
+			if (!fin) { peOutputTxtBox->Text += "Error Reading File"; }
 
 			fin.close();
 
-			peOutputTxtBox->Text += "File Name: ";
+			peOutputTxtBox->Text += "File Name: " + fileDialog->FileName + "\r\n\r\n";
+			peOutputTxtBox->Text += "File Type: " + System::IO::Path::GetExtension(fileDialog->FileName);
 			
 			
 
