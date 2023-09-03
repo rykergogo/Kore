@@ -56,8 +56,10 @@ namespace Kore {
 	private: System::Windows::Forms::TabControl^ tabControl1;
 	private: System::Windows::Forms::TabPage^ peOutputPg;
 	private: System::Windows::Forms::TabPage^ headerInfo;
+	public: System::Windows::Forms::TextBox^ peOutputTxtBox;
+	private:
 
-	private: System::Windows::Forms::TextBox^ peOutputTxtBox;
+
 	private: System::Windows::Forms::DataGridView^ View;
 
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ functionName;
@@ -186,6 +188,8 @@ namespace Kore {
 			// 
 			// View
 			// 
+			this->View->BackgroundColor = System::Drawing::SystemColors::InactiveCaption;
+			this->View->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->View->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->View->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->functionName, this->address,
@@ -277,8 +281,15 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 			fin.close();
 
+			if (Parser(buf, peOutputTxtBox) == "success") {
+				peOutputTxtBox->Text += "PE successfully parsed!\r\n\r\n";
+			}
+			else {
+				peOutputTxtBox->Text += "Something went wrong, try again...\r\n\r\n";
+			}
+
 			peOutputTxtBox->Text += "File Name: " + fileDialog->FileName + "\r\n\r\n";
-			peOutputTxtBox->Text += "File Type: " + System::IO::Path::GetExtension(fileDialog->FileName);
+			peOutputTxtBox->Text += "File Type: " + Path::GetExtension(fileDialog->FileName);
 			
 			
 
