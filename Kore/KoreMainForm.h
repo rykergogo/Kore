@@ -56,7 +56,7 @@ namespace Kore {
 	private: System::Windows::Forms::TabControl^ tabControl1;
 	private: System::Windows::Forms::TabPage^ peOutputPg;
 	private: System::Windows::Forms::TabPage^ headerInfo;
-	public: System::Windows::Forms::TextBox^ peOutputTxtBox;
+	private: System::Windows::Forms::TextBox^ peOutputTxtBox;
 	private:
 
 
@@ -281,7 +281,7 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 			fin.close();
 
-			if (Parser(buf, peOutputTxtBox) == "success") {
+			if (Parser(buf) == "success") {
 				peOutputTxtBox->Text += "PE successfully parsed!\r\n\r\n";
 			}
 			else {
@@ -297,5 +297,9 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 		}
 	}
 	}
+
+public: void setpeOutputTxtBox(System::String^ text) {
+	peOutputTxtBox->Text += text;
+}
 };
 }
