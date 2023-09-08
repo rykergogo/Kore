@@ -281,12 +281,7 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 			fin.close();
 
-			if (Parser(buf) == "success") {
-				peOutputTxtBox->Text += "PE successfully parsed!\r\n\r\n";
-			}
-			else {
-				peOutputTxtBox->Text += "Something went wrong, try again...\r\n\r\n";
-			}
+			peOutputTxtBox->Text += Parser(buf);
 
 			peOutputTxtBox->Text += "File Name: " + fileDialog->FileName + "\r\n\r\n";
 			peOutputTxtBox->Text += "File Type: " + Path::GetExtension(fileDialog->FileName);

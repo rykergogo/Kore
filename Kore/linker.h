@@ -1,4 +1,4 @@
 #pragma once
 
 std::string managedStrToNative(System::String^ sysstr);
-std::string Parser(char * PE);
+System::String^ Parser(char * PE);
