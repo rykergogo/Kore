@@ -2,7 +2,6 @@
 #include "linker.h"
 #include <iostream>
 #include <debugapi.h>
-#include <sstream>
 
 
 // Function implemented from: https://stackoverflow.com/questions/17789807/converting-managed-systemstring-to-stdstring-in-c-cli
@@ -81,7 +80,7 @@ System::String^ Parser(char * PE) {
 		// Imports
 		System::String^ name = gcnew System::String((LPCSTR)rawOffset + (importDescriptor->Name - importSection->VirtualAddress));
 		
-		output += " " + name + " ";
+		output += name + " ";
 
 		thunk = importDescriptor->OriginalFirstThunk == 0 ? importDescriptor->FirstThunk : importDescriptor->OriginalFirstThunk;
 		thunkData = (PIMAGE_THUNK_DATA)(rawOffset + (thunk - importSection->VirtualAddress));

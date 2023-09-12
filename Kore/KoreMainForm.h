@@ -5,6 +5,9 @@
 #include <WinUser.h>
 #include <filesystem>
 #include <fstream>
+#include <sstream>
+#include <string>
+#include <debugapi.h>
 
 
 
@@ -260,6 +263,7 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 	Stream^ stream;
 	OpenFileDialog^ fileDialog = gcnew OpenFileDialog;
+	std::string dll;
 
 	fileDialog->InitialDirectory = Directory::GetCurrentDirectory();
 	fileDialog->Filter = "Exe Files (*.exe)|*.exe";
@@ -269,6 +273,10 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 	if (fileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		if ((stream = fileDialog->OpenFile()) != nullptr) {
+			
+			// Remove any previous loads from other PE files
+			peOutputTxtBox->Text = "";
+			View->Rows->Clear();
 
 			std::string fileName = managedStrToNative(fileDialog->FileName);
 			
@@ -289,13 +297,20 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 			
 			System:String^ output = Parser(buf);
 
-			peOutputTxtBox->Text += output;
+			//peOutputTxtBox->Text += output;
 			
 			char separator = ' ';
+			
+			std::istringstream iss(managedStrToNative(output));
+			while (std::getline(iss, dll, separator)) {
+				
+				// Check for space and don't include that in data grid
+				std::ws(iss);
 
+				View->Rows->Add(gcnew System::String(dll.data()));
+			}
 			
-			View->Rows->Add(output);
-			
+
 
 			stream->Close();
 		}
