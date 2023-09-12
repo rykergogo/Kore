@@ -1,9 +1,8 @@
 #include "KoreMainForm.h"
 #include "linker.h"
-#include <sstream>
 #include <iostream>
 #include <debugapi.h>
-#include <string>
+#include <sstream>
 
 
 // Function implemented from: https://stackoverflow.com/questions/17789807/converting-managed-systemstring-to-stdstring-in-c-cli
@@ -75,13 +74,14 @@ System::String^ Parser(char * PE) {
 	// pointer to import descriptor's file offset
 	importDescriptor = (PIMAGE_IMPORT_DESCRIPTOR)(rawOffset + (imageNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress - importSection->VirtualAddress));
 
-	
+
+
 	for (; importDescriptor->Name != 0; importDescriptor++) {
-		std::ostringstream stream;
 		
 		// Imports
-		stream << rawOffset + (importDescriptor->Name - importSection->VirtualAddress);
-		//System::String^ sysStr = gcnew System::String ^ (stream.str());
+		System::String^ name = gcnew System::String((LPCSTR)rawOffset + (importDescriptor->Name - importSection->VirtualAddress));
+		
+		output += " " + name + " ";
 
 		thunk = importDescriptor->OriginalFirstThunk == 0 ? importDescriptor->FirstThunk : importDescriptor->OriginalFirstThunk;
 		thunkData = (PIMAGE_THUNK_DATA)(rawOffset + (thunk - importSection->VirtualAddress));

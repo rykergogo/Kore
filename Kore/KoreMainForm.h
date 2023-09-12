@@ -188,6 +188,8 @@ namespace Kore {
 			// 
 			// View
 			// 
+			this->View->AllowUserToAddRows = false;
+			this->View->AllowUserToDeleteRows = false;
 			this->View->BackgroundColor = System::Drawing::SystemColors::InactiveCaption;
 			this->View->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->View->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
@@ -197,6 +199,7 @@ namespace Kore {
 			});
 			this->View->Location = System::Drawing::Point(6, 6);
 			this->View->Name = L"View";
+			this->View->ReadOnly = true;
 			this->View->Size = System::Drawing::Size(538, 397);
 			this->View->TabIndex = 0;
 			// 
@@ -281,20 +284,22 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 
 			fin.close();
 
-			peOutputTxtBox->Text += Parser(buf);
-
 			peOutputTxtBox->Text += "File Name: " + fileDialog->FileName + "\r\n\r\n";
 			peOutputTxtBox->Text += "File Type: " + Path::GetExtension(fileDialog->FileName);
 			
+			System:String^ output = Parser(buf);
+
+			peOutputTxtBox->Text += output;
+			
+			char separator = ' ';
+
+			
+			View->Rows->Add(output);
 			
 
 			stream->Close();
 		}
 	}
 	}
-
-public: void setpeOutputTxtBox(System::String^ text) {
-	peOutputTxtBox->Text += text;
-}
 };
 }
