@@ -8,6 +8,8 @@
 #include <sstream>
 #include <string>
 #include <debugapi.h>
+#include "AboutForm.h"
+#include <string>
 
 
 
