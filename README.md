@@ -4,4 +4,5 @@ Kore is a reverse software engineering tool used to parse PE 32 Bit files. This 
 
 Need .NET framework installed to use.
 
-![Kore](https://github.com/rykergogo/Kore/assets/87205868/5e237d22-1fb7-4842-9275-bf11efe3ea6a)
+
+![Kore1](https://github.com/rykergogo/Kore/assets/87205868/0142826a-81c9-46a2-bcba-f79130bc9c58)![Kore](https://github.com/rykergogo/Kore/assets/87205868/9e98e079-3976-484d-928b-da18fe0366ff)
