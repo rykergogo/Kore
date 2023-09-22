@@ -2,6 +2,9 @@
 
 Kore is a reverse software engineering tool used to parse PE 32 Bit files. This tool will output all imported DLLs and related functions used in the PE file into a nice GUI. The PE file shown below is putty.exe.
 
+Written in C++
+Utilizes .NET Framework
+
 Need .NET framework installed to use.
 
 
