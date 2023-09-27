@@ -393,7 +393,6 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 			peOutputTxtBox->Text += "File Name: " + fileDialog->FileName + "\r\n\r\n";
 			peOutputTxtBox->Text += "File Type: " + Path::GetExtension(fileDialog->FileName) + "\r\n\r\n";
 			peOutputTxtBox->Text += "File Size: " + Math::Round((FileInfo(fileDialog->FileName).Length / 1048576), 2) + " MB\r\n\r\n";
-			peOutputTxtBox->Text += "Architecture: " + arch;
 
 			
 			output = Parser(buf, checker);

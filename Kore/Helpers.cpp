@@ -56,8 +56,6 @@ System::String^ Parser(char * PE, bool checker) {
 		System::Windows::Forms::MessageBox::Show("Not a valid PE or PE+ file!", "Error", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
 		exit(0);
 	}
-	
-	handle.setArch("test");
 	// Check architecture of PE file
 	if (fileHeader->Machine == IMAGE_FILE_MACHINE_I386) {
 		handle.setArch("x86");
