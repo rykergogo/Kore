@@ -63,8 +63,9 @@ namespace Kore {
 
 
 
-	protected:
+	public:
 		bool loaded = false;
+		String^ arch = "";
 
 		void setUrl(String^ urlToSet) {
 			url = urlToSet;
@@ -76,6 +77,10 @@ namespace Kore {
 
 		void printUrl() {
 			OutputDebugStringA(managedStrToNative(url).c_str());
+		}
+
+		void setArch(String^ archToSet) {
+			arch = archToSet;
 		}
 
 	private: System::Windows::Forms::MenuStrip^ mainMenuStrip;
@@ -358,11 +363,11 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 			String^ output;
 			List<String^> imports;
 			List<String^> funcs;
-			
+
 			// Used for cleaning up the strings from Parser
 			char separator = ' ';
 			bool checker = true;
-			
+
 			// Remove any previous loads from other PE files
 			peOutputTxtBox->Text = "";
 			url = "";
@@ -372,22 +377,24 @@ private: System::Void openBinaryToolStripMenuItem_Click(System::Object^ sender, 
 			setLoaded(true);
 
 			std::string fileName = managedStrToNative(fileDialog->FileName);
-			
+
 			std::uintmax_t fileSize = std::filesystem::file_size(fileName);
-			
+
 			char* buf = new char[fileSize];
 
 			std::ifstream fin(fileName, std::ios::binary);
 
 			fin.read(buf, fileSize);
 
-			if (!fin) { peOutputTxtBox->Text += "Error Reading File"; }
+			if (!fin) { MessageBox::Show("Cannot open file", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error); }
 
 			fin.close();
 
 			peOutputTxtBox->Text += "File Name: " + fileDialog->FileName + "\r\n\r\n";
 			peOutputTxtBox->Text += "File Type: " + Path::GetExtension(fileDialog->FileName) + "\r\n\r\n";
-			peOutputTxtBox->Text += "File Size: " + Math::Round((FileInfo(fileDialog->FileName).Length / 1048576), 2) + " MB";
+			peOutputTxtBox->Text += "File Size: " + Math::Round((FileInfo(fileDialog->FileName).Length / 1048576), 2) + " MB\r\n\r\n";
+			peOutputTxtBox->Text += "Architecture: " + arch;
+
 			
 			output = Parser(buf, checker);
 
